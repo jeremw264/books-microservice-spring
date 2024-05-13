@@ -1,9 +1,4 @@
 spring:
-  application:
-    name: api-gateway
-  config:
-    import: optional:configserver:http://localhost:9190
-
   cloud:
     gateway:
       discovery:
@@ -51,7 +46,3 @@ management:
     sampling:
       probability: 1.0
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:9105/eureka

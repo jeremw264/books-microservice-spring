@@ -1,6 +1,6 @@
 spring:
   application:
-    name: book-service
+    name: api-gateway
   cloud:
     bootstrap: true
     config:
@@ -11,5 +11,4 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:9105/eureka/
-
+      defaultZone: http://localhost:9105/eureka

@@ -1,12 +1,13 @@
 spring:
   application:
     name: config-server
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/jeremw264/books-microservice-spring
-          default-label: develop
+        native:
+          searchLocations: [classpath:/config, file:./config]
 server:
   port: 9190
 
