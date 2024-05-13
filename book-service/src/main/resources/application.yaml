@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: book-service
+  config:
+    import: optional:configserver:http://lcoalhost
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
