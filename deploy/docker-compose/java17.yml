@@ -1,0 +1,72 @@
+version: "3"
+services:
+  books-db:
+    image: postgres:alpine
+    container_name: books-db
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: books_database
+
+  users-db:
+    image: postgres:alpine
+    container_name: users-db
+    ports:
+      - "5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: users_database
+
+  rest-books-java17:
+    image: rest-books-java17:latest
+    container_name: rest-books-java17
+    build:
+      context: ../../book-service/
+      # TODO Build image
+    depends_on:
+      - books-db
+    ports:
+      - "8083:8083"
+    restart: on-failure
+    # Add env for db
+    networks:
+      default:
+        aliases:
+          - rest-books
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+
+  rest-auth-java17:
+    image: rest-auth-java17:latest
+    container_name: rest-auth-java17
+    build:
+      context: ../../auth-service/
+#      dockerfile: src/main/docker/Dockerfile.jvm
+    depends_on:
+      - user-db
+    ports:
+      - "8084:8084"
+#    environment:
+#    env for db
+    restart: on-failure
+    networks:
+      default:
+        aliases:
+          - rests-auth
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
