@@ -1,0 +1,22 @@
+spring:
+
+  jpa:
+    show-sql: true
+
+server:
+  port: 4321
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  level:
+    root: trace

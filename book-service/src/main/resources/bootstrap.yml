@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: book-service
+  cloud:
+    bootstrap: true
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+    config:
+      uri: http://localhost:9190/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9105/eureka/
+
