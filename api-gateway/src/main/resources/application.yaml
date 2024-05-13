@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://localhost:9190
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: book-service
+          uri: lb://book-service
+          predicates:
+            - Path=/api/books/**
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment}
+        - id: discovery-server
+          uri: http://eureka:password@${app.eureka-server}:9105
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: discovery-server-static
+          uri: http://eureka:password@${app.eureka-server}:9105
+          predicates:
+            - Path=/eureka/**
+
+app:
+  eureka-server: localhost
+
+server:
+  port: 8081
+
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9105/eureka
