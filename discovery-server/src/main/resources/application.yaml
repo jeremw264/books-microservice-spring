@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: discovery-server
+  config:
+    import: optional:configserver:http://lcoalhost
+  cloud:
+    config:
+      uri: http://localhost:9190
+
+server:
+  port: 9105
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:9105/eureka
