@@ -1,0 +1,45 @@
+spring:
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          oidc-client:
+            registration:
+              client-id: "oidc-client"
+              client-secret: "secret"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "client_credentials"
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris: "http://localhost:8081/login/oauth2/code/oidc-client"
+              scopes:
+                - "openid"
+                - "user.read"
+            require-authorization-consent: true
+server:
+  port: 4321
+
+management:
+  endpoint:
+    info:
+      enabled: true
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
