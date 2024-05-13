@@ -1,4 +1,4 @@
-package com.jeremw.bookstore.bookservice.exception;
+package com.jeremw.bookstore.authservice.exception;
 
 import lombok.Getter;
 import lombok.Setter;
