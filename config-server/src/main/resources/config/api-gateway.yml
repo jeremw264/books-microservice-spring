@@ -1,20 +1,22 @@
 spring:
+
   security:
     oauth2:
       client:
         registration:
           oidc-client:
             client-id: "oidc-client"
-            client-secret: "secret"
+            client-secret: secret
             client-authentication-method: "client_secret_basic"
             authorization-grant-type: "authorization_code"
             scope:
               - "openid"
               - "user.read"
-            redirect-uri: "{baseUrl}/login/oauth2/code/oidc-client"
+            redirect-uri: "http://localhost:8081/login/oauth2/code/{registrationId}"
         provider:
           oidc-client:
             issuer-uri: "http://localhost:4321"
+
   cloud:
     gateway:
       discovery:
